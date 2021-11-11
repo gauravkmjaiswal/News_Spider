@@ -33,15 +33,21 @@ export default class News extends Component {
 
     async componentDidMount()
     {
+        document.querySelector('title').text=`${this.props.category.charAt(0).toUpperCase()+this.props.category.slice(1)}-NewsSpider`
+        this.props.setProgress(10)
         this.setState({loading:true})
         let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.useApi}&pageSize=${this.props.pageSize}`
+        this.props.setProgress(20)
         let data= await fetch(url)
+        this.props.setProgress(40)
         let response=await data.json()
+        this.props.setProgress(80)
         console.log(response)
         this.setState({
             articles:response.articles,
             totalResults:response.totalResults,
             loading:false})
+        this.props.setProgress(100)
         
     }
 
