@@ -11,7 +11,7 @@ export default class News extends Component {
         country:'in',
         pageSize:9,
         category:'news',
-        api:"d83d3319d9c540b3bf5a492670aa841a"
+        api:"d83d3319d9c540b3bf5a492670aa841"
     }
     
     static propTypes={
