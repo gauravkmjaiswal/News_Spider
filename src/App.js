@@ -35,7 +35,7 @@ class App extends Component {
         progress={this.state.progress}
       />
         <Routes>
-          <Route exact path="/" element={<News key="news" setProgress={this.setProgress} setProgress={this.setProgress} useApi={this.api} setProgress={this.setProgress}  pageSize={this.SetPageSize} country="in" category="general"/>}>
+          <Route exact path="/" element={<News key="general" setProgress={this.setProgress} setProgress={this.setProgress} useApi={this.api} setProgress={this.setProgress}  pageSize={this.SetPageSize} country="in" category="general"/>}>
           </Route>
           <Route exact path="/business" element={<News key="business" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="business"/>}>
           </Route>
@@ -45,9 +45,9 @@ class App extends Component {
           </Route>
           <Route exact path="/science" element={<News key="science" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="science"/>}>
           </Route>
-          <Route exact path="/sports" element={<News key="sport" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="sports"/>}>
+          <Route exact path="/sports" element={<News key="sports" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="sports"/>}>
           </Route>
-          <Route exact path="/technology" element={<News key="tech" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="technology"/>}>
+          <Route exact path="/technology" element={<News key="technology" setProgress={this.setProgress} useApi={this.api} pageSize={this.SetPageSize} country="in" category="technology"/>}>
           </Route>
         </Routes>
         </Router>

@@ -10,8 +10,8 @@ export default class News extends Component {
     static defaultsProps={
         country:'in',
         pageSize:9,
-        category:'news',
-        api:"d83d3319d9c540b3bf5a492670aa841"
+        category:'general',
+        api:"d83d3319d9c540b3bf5a492670aa841a"
     }
     
     static propTypes={
@@ -31,30 +31,21 @@ export default class News extends Component {
         }
     }
 
-  
-
-
     async componentDidMount()
     {
         document.querySelector('title').text=`${this.props.category.charAt(0).toUpperCase()+this.props.category.slice(1)}-NewsSpider`
         this.props.setProgress(10)
         this.setState({loading:true})
-        // let url2=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&topic=${this.props.category}&apiKey=${this.props.useApi}&pageSize=${this.props.pageSize}`
-        // let url=``
-        
-        let data=await fetch(`https://free-news.p.rapidapi.com/v1/search?lang=en&q=${this.props.category}&page=${this.state.page}&page_size=${this.props.pageSize}`, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "free-news.p.rapidapi.com",
-                "x-rapidapi-key": "d966ca72e2msh74c212375cf5e08p1ab4d4jsn5daae3919c09"
-            }
-        })
-        let response=await data.json();
-       // let response=await apiCall(url);
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.useApi}&pageSize=${this.props.pageSize}`
+        this.props.setProgress(20)
+        let data= await fetch(url)
+        this.props.setProgress(40)
+        let response=await data.json()
+        this.props.setProgress(80)
         console.log(response)
         this.setState({
             articles:response.articles,
-            totalResults:response.total_pages,
+            totalResults:response.totalResults,
             loading:false})
         this.props.setProgress(100)
         
@@ -66,32 +57,18 @@ export default class News extends Component {
             //loading:true,
             page:this.state.page+1
         })
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.useApi}&page=${this.state.page}&page_size=${this.props.pageSize}`
-       // let data= await fetch(url)
-        
-console.log("well you are here")
-
-        let data=await fetch(`https://free-news.p.rapidapi.com/v1/search?lang=en&q=${this.props.category}&page=${this.state.page}&page_size=${this.props.pageSize}`, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "free-news.p.rapidapi.com",
-                "x-rapidapi-key": "d966ca72e2msh74c212375cf5e08p1ab4d4jsn5daae3919c09"
-            }
-        })
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.useApi}&page=${this.state.page}&pageSize=${this.props.pageSize}`
+        let data= await fetch(url)
         let response=await data.json()
-        console.log('ok'+response)
         //this.page=this.page-1
         // this.setState({articles:response.articles})
         this.setState(
             {
                 //page:this.state.page-1,
                 articles:this.state.articles.concat(response.articles),
-                
                 loading:false
             }
-           
         )
-        console.log(response.articles.length)
         
  
       };
@@ -106,7 +83,6 @@ console.log("well you are here")
                 <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
-        //   console.log('hello')
           
           hasMore={this.state.totalResults-this.state.articles.length>2}
           loader={<Spinner  margin="10px"/>}
@@ -118,22 +94,22 @@ console.log("well you are here")
                    {
                        return
                    }
-                    if(!element.media || element.media===undefined)
+                    if(!element.urlToImage || element.urlToImage===undefined)
                     {
-                        element.media=breakingNews
+                        element.urlToImage=breakingNews
                     }
 
-                    if(element.summary)
+                    if(element.description)
                     {
-                        if(element.summary.length>88)
+                        if(element.description.length>88)
                         {
-                            element.summary=element.summary.substring(0,88)+"..."                           
+                            element.description=element.description.substring(0,88)+"..."                           
                         }
                         
                     }
                     else
                     {
-                        element.summary=""
+                        element.description=""
                     }
 
                     if(element.title)
@@ -148,8 +124,8 @@ console.log("well you are here")
                     {element.title="Breaking News"}
                     count++;
                     return(
-                        <div className="col-md-4 my-2" key={element.media+count}>
-                            <NewsItem title={element.title} description={element.summary} siteLink={element.link}  imageUrl={element.media} author={element.author} date={element.published_date} source={element.clean_url}/>
+                        <div className="col-md-4 my-2" key={element.urlToImage+count}>
+                            <NewsItem title={element.title} description={element.description} siteLink={element.url}  imageUrl={element.urlToImage} author={element.author} date={element.publishedAt} source={element.source}/>
                         </div>
                     )
                 })}
