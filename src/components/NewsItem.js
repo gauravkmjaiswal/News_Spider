@@ -6,7 +6,7 @@ export default class Newsitem extends Component {
         return (
             <div>
                <div className="card " style={{borderWidth:0}} >
-               <span style={{float:"right"}}className="badge  bg-warning text-dark" style={{borderTopLeftRadius:"50rem",borderTopRightRadius:"50rem"}}>{source.name}</span>
+               <span style={{float:"right"}}className="badge  bg-warning text-dark" style={{borderTopLeftRadius:"50rem",borderTopRightRadius:"50rem"}}>{source}</span>
                     <img src={imageUrl} className="card-img-top" alt={title}/>
                     <div className="card-body">
                         <h5 className="card-title">{title}</h5>
