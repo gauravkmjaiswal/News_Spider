@@ -1,5 +1,6 @@
 {
   "name": "2nd_class",
+  "homepage": "https://gauravkmjaiswal.github.io/News_Spider",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -9,6 +10,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "gh-pages": "^4.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
@@ -18,13 +20,15 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "client-install":"npm install",
-    "client-build":"npm run build",
-    "heroku-postbuild":"npm run client-install && npm run client-build"
+    "client-install": "npm install",
+    "client-build": "npm run build",
+    "heroku-postbuild": "npm run client-install && npm run client-build"
   },
   "eslintConfig": {
     "extends": [
